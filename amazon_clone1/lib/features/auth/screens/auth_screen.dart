@@ -17,8 +17,10 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-  Auth _auth = Auth.signup;
-  final _signUpFormKey = GlobalKey<FormState>();
+  Auth _auth = Auth.signup;         //enum type variable can hold any value that is defined in the enum
+  final _signUpFormKey = GlobalKey<FormState>();  
+  //global key - to access widget outside the widget tree
+  //FormState - manages Form
   final _signInFormKey = GlobalKey<FormState>();
 
   final TextEditingController _emailController = TextEditingController();
