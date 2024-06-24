@@ -57,13 +57,16 @@ class _AuthScreenState extends State<AuthScreen> {
               ),
               leading: Radio(
                   activeColor: GlobalVariables.secondaryColor,
-                  value: Auth.signup,
-                  groupValue: _auth,
-                  onChanged: (Auth? val) {
-                    setState(() {
-                      _auth = val!;
+                  value: Auth.signup, //The value represented by this radio button.
+                  groupValue: _auth, //The currently selected value for a group of radio buttons.
+                                    // radio button is considered selected if its [value] matches the [groupValue]
+
+                  onChanged: (Auth? val) { //fnxn accepts parameter val of type Auth which can be null(?)
+                    setState(() {            //calls the build fnxn as state has changed
+                      _auth = val!;          //it changes the auth -> val for the new state, ! is for null check; null not allowed
                     });
-                  })),
+                  })
+                  ),
             if (_auth == Auth.signup)
               Container(
                 padding: EdgeInsets.all(8),
@@ -73,7 +76,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   child: Column(
                     children: [
                       CustomTextfield(
-                        controller: _nameController,
+                        controller: _nameController, //manages the text input related here i.e name
                         hintText: 'Name',
                       ),
                       const SizedBox(
