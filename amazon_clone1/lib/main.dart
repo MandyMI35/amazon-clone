@@ -1,5 +1,8 @@
 import 'package:amazon_clone1/constants/global_variables.dart';
+import 'package:amazon_clone1/features/auth/screens/auth_screen.dart';
+import 'package:amazon_clone1/router.dart';
 import 'package:flutter/material.dart';
+//import 'package:amazon_clone1/router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,22 +28,9 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      onGenerateRoute: , // run everytime we use pushnamed route
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('hello'),
-        ),
-        body: const Column(
-          children: [
-            Center(
-              child: Text(
-                'Flutter Demo Home Page'
-                )
-              ),
-              ElevatedButton(onPressed: null, child: Text('click'))
-          ],
-        )
-        ),
+      onGenerateRoute: (settings) => onGenerateRoute(settings), // run everytime we use pushnamed route
+      home: const AuthScreen(),
     );
   }
+  generateRoute(RouteSettings settings) {}
 }
