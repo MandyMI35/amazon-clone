@@ -4,6 +4,7 @@ const bcryptjs=require('bcryptjs');
 
 const authRouter = express.Router(); //instead of app, now we dont listen
 
+//SIGN UP
 authRouter.post('/api/signup', async (req, res) => {
     try {
         const { name, email, password } = req.body; //get data from client
