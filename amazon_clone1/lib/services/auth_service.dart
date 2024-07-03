@@ -21,9 +21,11 @@ class AuthService{
         type: '', 
         token: '');
 
-        http.Response res = await http.post(
-          Uri.parse('$uri/api/signup'),
-          body:user.toJson(),
+//http.post(...): This function sends an HTTP POST request to the specified URL.
+        http.Response res = await http.post(    //The result of the http.post request is stored in the variable res. It is of type http.Response, which contains the response data from the server.
+          Uri.parse('$uri/api/signup'),     //Uri.parse(...) function converts a string into a Uri object. '$uri/api/signup': This is the URL to which the 
+          //POST request is sent. $uri is a variable and /api/signup is the endpoint for user registration.
+          body:user.toJson(),                   //Converts the User object to a JSON
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',  //MIDDLEWARE express.json() line;
           }
