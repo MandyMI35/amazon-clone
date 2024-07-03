@@ -18,12 +18,12 @@ authRouter.post('/api/signup', async (req, res) => {
         const hashedPassword = await bcryptjs.hash(password, 8) //here salt=8
 
         //everything is an object
-        let user = new User({
+        let user = new User({          //calls user.js/model
             email,
             password: hashedPassword,
             name,
         })
-        user = await user.save();
+        user = await user.save();  //saves to database 'users'
 
         //send data to user
         res.json({ user });

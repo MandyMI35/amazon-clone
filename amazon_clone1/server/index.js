@@ -12,7 +12,7 @@ const DB = "mongodb+srv://mndalwee:sheeshmongo@mnd.pxcuzub.mongodb.net/?retryWri
 
 //MIDDLEWARE
 app.use(express.json());
-app.use(authRouter);
+app.use(authRouter);  //calls auth.js
 
 //connections
 mongoose.connect(DB)
