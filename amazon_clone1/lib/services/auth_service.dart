@@ -1,37 +1,56 @@
+import 'package:amazon_clone1/constants/error_handling.dart';
 import 'package:amazon_clone1/constants/global_variables.dart';
+import 'package:amazon_clone1/constants/utils.dart';
 import 'package:amazon_clone1/models/user.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http; //make api request to the localhost url in thunderclient
+import 'package:http/http.dart'
+    as http; //make api request to the localhost url in thunderclient
 
-class AuthService{
-
+class AuthService {
   //sign up user
   void signUpUser({
+    required BuildContext context,
     required String email,
     required String password,
     required String name,
   }) async {
-    try{
+    try {
       User user = User(
-        id: '', 
-        name: name, 
-        email: email, 
-        password: password, 
-        address: '', 
-        type: '', 
-        token: '');
+          id: '',
+          name: name,
+          email: email,
+          password: password,
+          address: '',
+          type: '',
+          token: '');
 
 //http.post(...): This function sends an HTTP POST request to the specified URL.
-        http.Response res = await http.post(    //The result of the http.post request is stored in the variable res. It is of type http.Response, which contains the response data from the server.
-          Uri.parse('$uri/api/signup'),     //Uri.parse(...) function converts a string into a Uri object. '$uri/api/signup': This is the URL to which the 
+      http.Response res = await http.post(
+          //The result of the http.post request is stored in the variable res. It is of type http.Response, which contains the response data from the server.
+          Uri.parse(
+              '$uri/api/signup'), //Uri.parse(...) function converts a string into a Uri object. '$uri/api/signup': This is the URL to which the
           //POST request is sent. $uri is a variable and /api/signup is the endpoint for user registration.
-          body:user.toJson(),                   //Converts the User object to a JSON
+          body: user.toJson(), //Converts the User object to a JSON
           headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',  //MIDDLEWARE express.json() line;
-          }
-        );
-    } catch(e){
-      
+            //put this line everytime we make request to api . due to app.use(express.json()); in index.js
+            'Content-Type':
+                'application/json; charset=UTF-8', //MIDDLEWARE express.json() line;
+          });
+          httpErrorHandle(
+            response: res, 
+            context: context, 
+            onSuccess: (){
+              showSnackBar(
+                context, 
+                'Account created! Login with same credentials'
+              );
+            }
+          );
+    } catch (e) {
+      showSnackBar(
+                context, 
+                e.toString()
+              );
     }
   }
 }
