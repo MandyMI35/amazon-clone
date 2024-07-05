@@ -7,6 +7,7 @@ const {authRouter} = require('./routes/auth');
 
 //INIT
 const PORT = process.env.PORT || 3000;
+console.log(process.env.PORT);
 const app=express(); //Create a new Express application instance and store it in the app
 const DB = "mongodb+srv://mndalwee:sheeshmongo@mnd.pxcuzub.mongodb.net/?retryWrites=true&w=majority&appName=mnd";
 
