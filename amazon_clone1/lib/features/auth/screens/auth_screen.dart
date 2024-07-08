@@ -11,7 +11,7 @@ enum Auth {
 
 class AuthScreen extends StatefulWidget {
   static const String routeName = '/auth-screen';
-  const AuthScreen({super.key});
+  const AuthScreen({super.key}); //sed to pass the optional key property from the AuthScreen constructor to the StatefulWidget constructor.
 
   @override
   State<AuthScreen> createState() => _AuthScreenState();

@@ -42,7 +42,8 @@ class AuthService {
             'Content-Type':
                 'application/json; charset=UTF-8', //MIDDLEWARE express.json() line;
           });
-          httpErrorHandle(
+
+          httpErrorHandle(   //calls the fnxn from constants/error_handling.dart
             response: res, 
             context: context, 
             onSuccess: (){
@@ -82,10 +83,10 @@ class AuthService {
             response: res, 
             context: context, 
             onSuccess: () async {
-              SharedPreferences prefs = await SharedPreferences.getInstance();
+              SharedPreferences prefs = await SharedPreferences.getInstance();  // Gets an instance of SharedPreferences, which is used to store data locally on the device
               Provider.of<UserProvider>(context, listen:false).setUser(res.body);
-              await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
-              Navigator.pushNamedAndRemoveUntil(context, HomeScreen.routeName, (route)=>false);
+              await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);  //stores the access token retrieved from the API response in SharedPreferences, prefs.setString stores a string value under the key "x-auth-token"
+              Navigator.pushNamedAndRemoveUntil(context, HomeScreen.routeName, (route)=>false);  //false means that all previous routes will be removed from the navigator.
             }
           );
     } catch (e) {
