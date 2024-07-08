@@ -51,12 +51,14 @@ authRouter.post('/api/signin', async (req, res) =>{
             return res.status(400).json({msg : "Incorrect password."});
         }
         //jwt to verify users
-        const token = jwt.sign({id: user._id},"passwordKey");
+        const token = jwt.sign({id: user._id},"passwordKey"); /////////////////////
         res.json({token , ...user._doc})
     }catch(e){
         res.status(500).json({error: e.message});
     }
 }
 );
+
+// token will be passed thorugh header not body
 
 module.exports = { authRouter }; //in case u want to export multiple things u have to create an object nd use {}

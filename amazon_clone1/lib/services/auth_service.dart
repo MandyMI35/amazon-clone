@@ -96,4 +96,6 @@ class AuthService {
               );
     }
   }
+
+  // token will be passed thorugh header not body
 }
