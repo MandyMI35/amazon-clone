@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:amazon_clone1/common/widgets/bottom_bar.dart';
 import 'package:amazon_clone1/constants/error_handling.dart';
 import 'package:amazon_clone1/constants/global_variables.dart';
 import 'package:amazon_clone1/constants/utils.dart';
@@ -86,7 +87,7 @@ class AuthService {
               SharedPreferences prefs = await SharedPreferences.getInstance();  // Gets an instance of SharedPreferences, which is used to store data locally on the device
               Provider.of<UserProvider>(context, listen:false).setUser(res.body);
               await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);  //stores the access token retrieved from the API response in SharedPreferences, prefs.setString stores a string value under the key "x-auth-token"
-              Navigator.pushNamedAndRemoveUntil(context, HomeScreen.routeName, (route)=>false);  //false means that all previous routes will be removed from the navigator.
+              Navigator.pushNamedAndRemoveUntil(context, BottomBar.routeName, (route)=>false);  //false means that all previous routes will be removed from the navigator.
             }
           );
     } catch (e) {
@@ -94,6 +95,47 @@ class AuthService {
                 context, 
                 e.toString()
               );
+    }
+  }
+  //get user data
+  //we want user data,through an self created api for which we need token
+  void getUserData(
+    BuildContext context,
+  ) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('x-auth-token');
+
+      if(token == null){   //user has used the app first time and now the token is ' not null
+        prefs.setString('x-auth-token', '');
+      }
+
+      var tokenRes = await http.post(    //calls the tokenIsValid api in auth.js to check if the token is genuine
+        Uri.parse('$uri/tokenIsValid'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': token!
+        }
+      );
+
+      var response = jsonDecode(tokenRes.body);
+      
+      if (response == true) {
+        //call api to get user data
+        http.Response userRes = await http.get(
+          Uri.parse('$uri/'),
+          headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': token!
+          },
+        );
+
+        var userProvider = Provider.of<UserProvider>(context, listen: false);
+        userProvider.setUser(userRes.body);
+      }
+    }
+    catch(e){
+      showSnackBar(context, e.toString());
     }
   }
 
