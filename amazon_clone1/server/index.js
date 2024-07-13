@@ -1,7 +1,7 @@
 //import from packages
 const express = require("express"); //require function: import a module from your project's dependencies
 const mongoose=require('mongoose');
-const cors = require('cors')
+const cors = require('cors');
 
 //IMPORT FROM OTHER FILES
 const {authRouter} = require('./routes/auth'); 
