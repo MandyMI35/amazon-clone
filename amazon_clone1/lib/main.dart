@@ -57,12 +57,15 @@ class _MyAppState extends State<MyApp> {
           ? Provider.of<UserProvider>(context).user.type == 'user'
               ? const BottomBar()
               : const AdminScreen()
-          : const AuthScreen(),
+          : const AdminScreen(),
     );
   }
 
   generateRoute(RouteSettings settings) {}
 }
+
+
+
 // Provider.of<UserProvider>(context).user.token.isEmpty
 //           ? const AuthScreen(),
 //            Provider.of<UserProvider>(context).user.type == 'user'
