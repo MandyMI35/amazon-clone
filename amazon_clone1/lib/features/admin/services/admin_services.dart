@@ -14,7 +14,15 @@ class AdminServices {
     required List<File> images,
   }) async {
     try{
-      final cloudinary = CloudinaryPublic('dr8rkkreo', CLOUDINARY_URL=cloudinary://271411331886678:Jcg92CHT8Hm4_n-Kbv8zQ5IGLv0@dr8rkkreo)
+      final cloudinary = CloudinaryPublic('dr8rkkreo','vubhb9n8');
+      List<String> imageUrls = [];
+
+      for(int i=0;i<images.length;i++){
+        CloudinaryResponse res = await cloudinary.uploadFile(
+          CloudinaryFile.fromFile(images[i].path)
+        );
+        imageUrls.add(res.secureUrl);
+      }
     } catch(e){
       showSnackBar(context, e.toString());
     }
