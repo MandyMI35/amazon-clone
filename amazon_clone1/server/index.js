@@ -5,6 +5,7 @@ const cors = require('cors');
 
 //IMPORT FROM OTHER FILES
 const {authRouter} = require('./routes/auth'); 
+const adminRouter = require("./routes/admin");
 
 //INIT
 const PORT = process.env.PORT || 3000;
@@ -16,6 +17,7 @@ const DB = "mongodb+srv://mndalwee:sheeshmongo@mnd.pxcuzub.mongodb.net/?retryWri
 app.use(cors());
 app.use(express.json());  //Returns middleware that only parses json and only looks at requests where the Content-Type header matches the type option.
 app.use(authRouter);  //calls auth.js
+app.use(adminRouter);
 
 //connections
 mongoose.connect(DB)
