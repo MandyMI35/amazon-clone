@@ -44,8 +44,9 @@ class Product {
     );
   }
 
-  String toJson() => json.encode(toMap());
+  String toJson() => json.encode(toMap());   // json.encode : dart object => json string
 
   factory Product.fromJson(String source) =>
-      Product.fromMap(json.decode(source));
+      Product.fromMap(json.decode(source)); //json string is decoded and converted to 'product' object
+                                       // json.decode :  json string=> dart object
 }

@@ -1,4 +1,5 @@
 import 'package:amazon_clone1/features/admin/screens/add_product_screen.dart';
+import 'package:amazon_clone1/features/admin/services/admin_services.dart';
 import 'package:flutter/material.dart';
 
 class PostsScreen extends StatefulWidget {
@@ -9,9 +10,21 @@ class PostsScreen extends StatefulWidget {
 }
 
 class _PostsScreenState extends State<PostsScreen> {
+  List<Product>? 
+  final AdminServices adminServices = AdminServices();
+
+  @override
+  void initState() {
+    super.initState();
+    fetchAllProducts();
+  }
+
+  fetchAllProducts () async {
+    await adminServices.fetchAllProducts(context);
+  }
 
   void navigateToAddProduct(){
-    Navigator.pushNamed(context, AddProductScreen.routeName);
+    Navigator.pushNamed(context, AddProductScreen.routeName);  // routeName = '/add-product'; ,, router.dart
   }
   @override
   Widget build(BuildContext context) {

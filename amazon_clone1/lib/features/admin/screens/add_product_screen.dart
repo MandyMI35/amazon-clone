@@ -18,9 +18,9 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
-//text field is widely used in Android Applications for taking user input, using TextEditingController we can retrieve the data from the text field.
-  final TextEditingController productNameController =
-      TextEditingController(); //TextEditingController() constructor to create a new instance of the TextEditingController class
+  //text field is widely used in Android Applications for taking user input, using TextEditingController we can retrieve the data from the text field.
+  final TextEditingController productNameController = TextEditingController(); 
+  //TextEditingController() constructor to create a new instance of the TextEditingController class
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
   final TextEditingController quantityController = TextEditingController();
@@ -47,7 +47,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   ];
 
   void sellProduct(){
-    if (_addProductFormKey.currentState!.validate() && images.isNotEmpty){
+    if (_addProductFormKey.currentState!.validate() && images.isNotEmpty){   //uses the key to access the form's state and validate it
       adminServices.sellProduct(
         context: context, 
         name: productNameController.text, 
@@ -98,7 +98,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 ),
                 images.isNotEmpty
                     ? CarouselSlider(
-                        items: images.map((i) {
+                        items: images.map((i) { //items: list of widgets that will be displayed in the carousel.
                           return Builder(
                             builder: (BuildContext context) => Image.file(
                               i,
@@ -107,7 +107,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                             ),
                           );
                         }).toList(),
-                        options: CarouselOptions(
+                        options: CarouselOptions(  //options defines the behavior of the carousel.
                           viewportFraction: 1,
                           height: 200,
                         ),
@@ -176,13 +176,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                SizedBox(
+                SizedBox(  //Creates a fixed size box
                   width: double.infinity,
                   child: DropdownButton(
-                    value: category,
+                    value: category, //The value of the currently selected [DropdownMenuItem].
                     icon: const Icon(Icons.keyboard_arrow_down),
                     items: productCategories.map((String item) {
-                      return DropdownMenuItem(value: item, child: Text(item));
+                      return DropdownMenuItem(value: item, child: Text(item));//value : The value to return if the user selects this menu item.
                     }).toList(),
                     onChanged: (String? newVal) {
                       setState(() {
