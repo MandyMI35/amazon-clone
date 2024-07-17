@@ -33,4 +33,14 @@ adminRouter.get('/admin/get-products',admin, async (req, res)=>{
     }
 });
 
+adminRouter.post('/admin/delete-product', admin, async(req,res)=>{
+    try {  //post bcuz we want to send the id of the post we want to delete
+        const {id}=req.body;
+        let product = await Product.findByIdAndDelete(id);
+        res.json(product); //no need , just to send status code of 200
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 module.exports = adminRouter;

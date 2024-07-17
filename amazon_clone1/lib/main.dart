@@ -57,7 +57,7 @@ class _MyAppState extends State<MyApp> {
           ? Provider.of<UserProvider>(context).user.type == 'user'
               ? const BottomBar()
               : const AdminScreen()
-          : const AdminScreen(),
+          : const AuthScreen(),
     );
   }
 

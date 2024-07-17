@@ -6,7 +6,9 @@ import 'package:amazon_clone1/constants/utils.dart';
 import 'package:amazon_clone1/models/product.dart';
 import 'package:amazon_clone1/providers/user_provider.dart';
 import 'package:cloudinary_public/cloudinary_public.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
@@ -67,7 +69,7 @@ class AdminServices {
  }
 
   Future<List<Product>> fetchAllProducts (BuildContext context) async{
-     final userProvider = Provider.of<UserProvider>(context);
+     final userProvider = Provider.of<UserProvider>(context, listen: false);
      List<Product> productList = [];
      try{
       http.Response res = await http.get(Uri.parse('$uri/admin/get-products'),headers: {
@@ -76,7 +78,7 @@ class AdminServices {
       });
 
       httpErrorHandle(
-        response: res, 
+        response: res,
         context: context, 
         onSuccess: (){
           for(int i=0; i<jsonDecode(res.body).length;i++){
@@ -88,5 +90,35 @@ class AdminServices {
       showSnackBar(context, e.toString());
     }
     return productList;
+  }
+
+  void deleteProduct({
+    required BuildContext context, 
+    required Product product, 
+    required VoidCallback onSuccess //to use set state fnxn
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    try{
+      http.Response res = await http.post(Uri.parse(
+        '$uri.admin/delete-product'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8', //MIDDLEWARE express.json() line;
+          'x-auth-token' : userProvider.user.token,
+        },
+        body: jsonEncode({
+          'id': product.id,
+        }),
+      );
+
+      httpErrorHandle(
+        response: res, 
+        context: context, 
+        onSuccess: (){
+          onSuccess();
+        }
+      );
+    } catch(e){
+      showSnackBar(context, e.toString());
+    }
   }
 }
