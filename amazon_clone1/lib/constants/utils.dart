@@ -19,7 +19,7 @@ Future<List<File>> pickImages() async{
     //files(variable one).files(property that filepicker gives)
     if (files != null && files.files.isNotEmpty){
       for(int i=0;i<files.files.length;i++){
-        images.add(File(files.files[i].path!));
+        images.add(File(files.files[i].path!)); //File : Creates a [File] object.
       }
     }
   }catch(e){

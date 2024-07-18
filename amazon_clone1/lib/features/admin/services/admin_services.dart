@@ -72,7 +72,7 @@ class AdminServices {
      final userProvider = Provider.of<UserProvider>(context, listen: false);
      List<Product> productList = [];
      try{
-      http.Response res = await http.get(Uri.parse('$uri/admin/get-products'),headers: {
+      http.Response res = await http.get(Uri.parse('$uri/admin/get-products'),headers: {  //Uri.parse to create a Uri object from URL string.
           'Content-Type': 'application/json; charset=UTF-8', //MIDDLEWARE express.json() line;
           'x-auth-token' : userProvider.user.token,
       });
@@ -82,7 +82,13 @@ class AdminServices {
         context: context, 
         onSuccess: (){
           for(int i=0; i<jsonDecode(res.body).length;i++){
-            Product.fromJson(jsonEncode(jsonDecode(res.body)[i]),); //fromMap(dart obj)
+            productList.add(
+              Product.fromJson(
+                jsonEncode(
+                  jsonDecode(res.body)[i],
+                ),
+              ),
+            ); //fromMap(dart obj)
           }
         },
       );

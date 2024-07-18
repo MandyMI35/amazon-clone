@@ -54,7 +54,7 @@ class _PostsScreenState extends State<PostsScreen> {
               itemCount: products!.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2),
-              itemBuilder: (context, index) {
+              itemBuilder: (context, index) {  // to create the individual cells in the grid.
                 final productData = products![index];
                 return Column(
                   children: [

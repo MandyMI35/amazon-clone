@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:amazon_clone1/common/widgets/custom_button.dart';
 import 'package:amazon_clone1/common/widgets/custom_textfield.dart';
 import 'package:amazon_clone1/constants/global_variables.dart';
