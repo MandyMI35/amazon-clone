@@ -7,7 +7,8 @@ class TopCategories extends StatelessWidget {
   const TopCategories({super.key});
 
   void navigateToCategoryPage(BuildContext context,String category){
-    Navigator.pushNamed(context, CategoryDealsScreen.routeName, arguments: category);
+    Navigator.pushNamed(context, CategoryDealsScreen.routeName, arguments: category); 
+    //context for navigation and arguments to pass info (category) to new screen
   }
 
   @override

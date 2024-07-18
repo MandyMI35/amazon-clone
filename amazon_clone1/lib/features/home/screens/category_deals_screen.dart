@@ -2,7 +2,6 @@ import 'package:amazon_clone1/common/widgets/loader.dart';
 import 'package:amazon_clone1/constants/global_variables.dart';
 import 'package:amazon_clone1/features/home/services/home_services.dart';
 import 'package:amazon_clone1/models/product.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class CategoryDealsScreen extends StatefulWidget {
@@ -24,7 +23,7 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
   }
 
   fetchCategoryProducts() async {
-    productList = await homeServices.fetchCategoryProducts(
+    productList = await homeServices.fetchCategoryProducts( //from home_service.dart
         context: context, category: widget.category);
     setState(() {}); //build the below widget
   }

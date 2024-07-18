@@ -18,7 +18,7 @@ class HomeServices{
     final userProvider = Provider.of<UserProvider>(context, listen: false);
      List<Product> productList = [];
      try{
-      http.Response res = await http.get(Uri.parse('$uri/api/products?category=$category'),headers: {
+      http.Response res = await http.get(Uri.parse('$uri/api/products?category=$category'),headers: { //yri in product.js
           'Content-Type': 'application/json; charset=UTF-8', //MIDDLEWARE express.json() line;
           'x-auth-token' : userProvider.user.token,
       });
