@@ -19,8 +19,12 @@ class CustomButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
           backgroundColor: GlobalVariables.secondaryColor,
           minimumSize: const Size(double.infinity, 50)),
+          
       child: Text(
         text,
+        style: TextStyle(
+          color: color == null ?Colors.white : Colors.black
+        ),
       ),
     );
   }
