@@ -35,7 +35,8 @@ const productSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    ratings: [ratingSchema],
+    ratings: [ratingSchema], //ratings is going to be array of all ratingSchema we have
+    //like an object containing data of multiple users
 })
 
 const Product = mongoose.model('Product', productSchema);

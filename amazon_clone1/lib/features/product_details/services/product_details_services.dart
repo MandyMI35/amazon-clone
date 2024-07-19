@@ -33,6 +33,7 @@ class ProductDetailsServices{
         response: res,
         context: context, 
         onSuccess: (){
+          
         },
       );
      } catch(e){
