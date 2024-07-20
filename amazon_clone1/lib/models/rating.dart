@@ -26,3 +26,4 @@ class Rating{
 
   factory Rating.fromJson(String source) => Rating.fromMap(json.decode(source));
 }
+

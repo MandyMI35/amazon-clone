@@ -24,14 +24,19 @@ class SearchServices{
           'x-auth-token' : userProvider.user.token,
       });
 
+      //  product.js/routes  
+
       httpErrorHandle(
         response: res,
         context: context, 
         onSuccess: (){
           for(int i=0; i<jsonDecode(res.body).length;i++){
-            Product.fromJson(
-              jsonEncode(
-                jsonDecode(res.body)[i]),
+            productList.add(
+              Product.fromJson(
+                jsonEncode(
+                  jsonDecode(res.body)[i],
+                ),
+              ),
             ); 
           }
         },

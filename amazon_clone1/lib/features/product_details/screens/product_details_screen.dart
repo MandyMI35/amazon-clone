@@ -31,6 +31,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     double totalRating=0;
     for(int i=0;i<widget.product.rating!.length;i++){
       totalRating += widget.product.rating![i].rating;
+      //T of<T>(BuildContext context, {bool listen = true}) ,Obtains the nearest [Provider] up its widget tree and returns its value.
       if(widget.product.rating![i].userId == Provider.of<UserProvider>(context,listen: false).user.id){
         myRating += widget.product.rating![i].rating;
       }
