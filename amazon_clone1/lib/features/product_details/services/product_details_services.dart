@@ -32,9 +32,7 @@ class ProductDetailsServices{
       httpErrorHandle(
         response: res,
         context: context, 
-        onSuccess: (){
-          
-        },
+        onSuccess: (){},
       );
      } catch(e){
       showSnackBar(context, e.toString());

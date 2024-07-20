@@ -47,6 +47,27 @@ productRouter.post('api/rate-product',auth, async (req, res)=>{
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
+});
+
+productRouter.get('/api/deal-of-day',async (req,res)=>{
+    //product with highest rating
+    try {
+        let products = await Product.find({});
+
+        products = products.sort((a,b)=>{
+            let asum,bsum=0;
+            for(let i=0;i<a.ratings.length;i++){
+                asum+=a.ratings[i].rating;
+            }
+            for(let i=0;i<b.ratings.length;i++){
+                bsum+=b.ratings[i].rating;
+            }
+            return asum<bsum ? 1 : -1;
+        });
+        res.json(products[0]);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 })
 
 module.exports = productRouter;

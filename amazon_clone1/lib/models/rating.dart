@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+//only imported in product.dart
 class Rating{
   final String userId;
   final double rating;

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:amazon_clone1/models/rating.dart';
 
 class Product {
@@ -47,10 +46,10 @@ class Product {
         price: map['price']?.toDouble() ?? 0.0,
         id: map[
             '_id'], //_id is the one passed by mongo, we havent done anything
-        rating: map['ratings'] != null
+        rating: map['ratings'] != null   //ratings a/c to model product
             ? List<Rating>.from(
                 map['ratings']?.map(
-                  (x) => Rating.fromMap(x),
+                  (x) => Rating.fromMap(x),  //Rating.fromMap calls rating.dart
                 ),
               )
             : null);

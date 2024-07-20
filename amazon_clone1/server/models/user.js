@@ -39,7 +39,10 @@ const userSchema = mongoose.Schema({
     type: {
         type:String,
         default:'user', //by default we want to open the user window
-    }
+    },
+    cart:[
+        
+    ]
 });
 
 const User = mongoose.model("User",userSchema);

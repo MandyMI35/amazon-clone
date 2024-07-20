@@ -13,6 +13,7 @@ import '../../../constants/global_variables.dart';
 class HomeServices{
   Future<List<Product>> fetchCategoryProducts({
     required BuildContext context,
+    
     required String category,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
@@ -28,9 +29,12 @@ class HomeServices{
         context: context, 
         onSuccess: (){
           for(int i=0; i<jsonDecode(res.body).length;i++){
-            Product.fromJson(
-              jsonEncode(
-                jsonDecode(res.body)[i]),
+            productList.add(
+              Product.fromJson(
+                jsonEncode(
+                  jsonDecode(res.body)[i],
+                ),
+              ),
             ); 
           }
         },
@@ -39,5 +43,36 @@ class HomeServices{
       showSnackBar(context, e.toString());
     }
     return productList;
+  }
+
+  Future<Product> fetchDealOfDay({
+    required BuildContext context,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+     Product product = Product(
+      name: '', 
+      description: '', 
+      price: 0, 
+      quantity: 0, 
+      category: '', 
+      images: [],
+    );
+     try{
+      http.Response res = await http.get(Uri.parse('$uri/api/deal-of-day'),headers: { //yri in product.js
+          'Content-Type': 'application/json; charset=UTF-8', //MIDDLEWARE express.json() line;
+          'x-auth-token' : userProvider.user.token,
+      });
+
+      httpErrorHandle(
+        response: res,
+        context: context, 
+        onSuccess: (){
+          product = Product.fromJson(res.body);
+        },
+      );
+     } catch(e){
+      showSnackBar(context, e.toString());
+    }
+    return product;
   }
 }
