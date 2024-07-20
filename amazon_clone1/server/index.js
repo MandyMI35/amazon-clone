@@ -7,6 +7,7 @@ const cors = require('cors');
 const {authRouter} = require('./routes/auth'); 
 const adminRouter = require("./routes/admin");
 const productRouter = require("./routes/product");
+const userRouter = require("./routes/user");
 
 //INIT
 const PORT = process.env.PORT || 3000;
@@ -20,6 +21,7 @@ app.use(express.json());  //Returns middleware that only parses json and only lo
 app.use(authRouter);  //calls auth.js
 app.use(adminRouter);
 app.use(productRouter);
+app.use(userRouter);
 
 //connections
 mongoose.connect(DB)

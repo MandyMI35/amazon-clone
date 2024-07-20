@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { productSchema } = require('./product');
 
 const userSchema = mongoose.Schema({
     name:{
@@ -41,7 +42,13 @@ const userSchema = mongoose.Schema({
         default:'user', //by default we want to open the user window
     },
     cart:[
-        
+        {
+            product: productSchema,//we r not passing model bcuz then it will create seperate database
+            quantity: {
+                type: Number,
+                required: true,
+            }
+        }
     ]
 });
 
