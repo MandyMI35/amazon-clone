@@ -10,16 +10,26 @@ userRouter.post('/api/add-to-cart',auth,async(req, res)=>{
         const product = await Product.findById(id);
         //we r storing in provider as it will be messy to everytime post and get so saving in model, provider
         let user = await User.findById(req.user); 
-        //cannot use == as we r comparing orbjectId/mongooseId not string
         if (user.cart.length==0){
             user.cart.push({product,quantity:1});
         } else {
             let isProductFound = false;
             for(let i=0;i<user.cart.length;i++){
-                if(user.cart[i].product._id.equals(product._id)){
-                    
+                if(user.cart[i].product._id.equals(product._id)){ //cannot use == as we r comparing orbjectId/mongooseId not string
+                    isProductFound=true;
                 }
             }
+
+            if(isProductFound){
+                let producttt = user.cart.find((productt)=>
+                 productt.product._id.equals(product._id)
+                );
+                producttt.quantity+=1;
+            } else{
+                user.cart.push({product,quantity:1});
+            }
+            user = await user.save();
+            res.json(user);
         }
     } catch (error) {
         res.status(500).json({ error: error.message });

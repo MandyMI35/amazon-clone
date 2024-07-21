@@ -29,7 +29,9 @@ class AuthService {
           password: password,
           address: '',
           type: '',
-          token: '');
+          token: '',
+          cart: [],
+        );
 
 //http.post(...): This function sends an HTTP POST request to the specified URL.
       http.Response res = await http.post(

@@ -9,13 +9,19 @@ class UserProvider extends ChangeNotifier {
     password: '', 
     address: '', 
     type: '', 
-    token: ''
+    token: '',
+    cart: [],
   );
 //getter allows access to private variables/objects
   User get user => _user; //this is a getter , allowing external classes to access the _user variable
 
   void setUser(String user){   //string bcuz we r going to pass res.body in auth_service httperrorhandler to it
     _user = User.fromJson(user);
+    notifyListeners();
+  }
+
+  void setUserFromModel(User user){
+    _user = user;
     notifyListeners();
   }
 }
