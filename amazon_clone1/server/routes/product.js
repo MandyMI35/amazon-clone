@@ -62,7 +62,7 @@ productRouter.get('/api/deal-of-day',async (req,res)=>{
             for(let i=0;i<b.ratings.length;i++){
                 bsum+=b.ratings[i].rating;
             }
-            return asum<bsum ? 1 : -1;
+            return asum<bsum ? 1 : -1; //1, meaning b should come before a in the sorted list.
         });
         res.json(products[0]);
     } catch (error) {

@@ -58,7 +58,7 @@ class HomeServices{
       images: [],
     );
      try{
-      http.Response res = await http.get(Uri.parse('$uri/api/deal-of-day'),headers: { //yri in product.js
+      http.Response res = await http.get(Uri.parse('$uri/api/deal-of-day'),headers: { //uri in product.js
           'Content-Type': 'application/json; charset=UTF-8', //MIDDLEWARE express.json() line;
           'x-auth-token' : userProvider.user.token,
       });

@@ -19,7 +19,7 @@ class ProductDetailsServices{
      try{
       http.Response res = await http.post(
         Uri.parse('$uri/api/add-to-cart'),
-        headers: { //uri in product.js
+        headers: { //uri in user.js
           'Content-Type': 'application/json; charset=UTF-8', //MIDDLEWARE express.json() line;
           'x-auth-token' : userProvider.user.token,
         },
@@ -32,10 +32,10 @@ class ProductDetailsServices{
         response: res,
         context: context, 
         onSuccess: (){
-          User user = userProvider.user.copyWith(
+          User user = userProvider.user.copyWith(  //calls user.dart
             cart: jsonDecode(res.body)['cart']
           );
-          userProvider.setUserFromModel(user);
+          userProvider.setUserFromModel(user);  //calls user_provider.dart
         },
       );
      } catch(e){
