@@ -8,7 +8,7 @@ userRouter.post('/api/add-to-cart',auth,async(req, res)=>{
     try {
         const {id} = req.body;
         const product = await Product.findById(id);
-        //we r storing in provider as it will be messy to everytime post and get so saving in model, provider
+        //we r saving cart in user as we dont hv to fetch info everytime user clicks on cart icon and it will be messy to everytime post and get so saving the model in provider
         let user = await User.findById(req.user); 
         if (user.cart.length==0){
             user.cart.push({product,quantity:1});
@@ -35,5 +35,31 @@ userRouter.post('/api/add-to-cart',auth,async(req, res)=>{
         res.status(500).json({ error: error.message });
     }
 });
+
+userRouter.delete('/api/remove-from-cart/:id',auth,async(req, res)=>{
+    try {
+        const {id} = req.params;  //same as req.params.id
+        const product = await Product.findById(id);
+        //we r saving cart in user as we dont hv to fetch info everytime user clicks on cart icon and it will be messy to everytime post and get so saving the model in provider
+        let user = await User.findById(req.user); 
+        
+        for(let i=0;i<user.cart.length;i++){
+            if(user.cart[i].product._id.equals(product._id)){ //cannot use == as we r comparing orbjectId/mongooseId not string
+                if (user.cart[i].quantity == 1){
+                    user.cart.splice(i,1);
+                } else{
+                    user.cart[i].quantity -= 1;
+                }               
+            }
+        }
+
+        user = await user.save();
+        res.json(user);
+        
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 
 module.exports = userRouter;
