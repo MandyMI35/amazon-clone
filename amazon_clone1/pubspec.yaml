@@ -45,7 +45,7 @@ dependencies:
   cloudinary_public: ^0.23.1
   universal_io: ^2.2.2
   flutter_rating_bar: ^4.0.1
-  pay: ^2.0.0
+  pay: 1.0.11
 
 dev_dependencies:
   flutter_test:

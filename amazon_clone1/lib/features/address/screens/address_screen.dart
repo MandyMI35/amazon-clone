@@ -22,9 +22,8 @@ class _AddressScreenState extends State<AddressScreen> {
   final TextEditingController areaController = TextEditingController();
   final TextEditingController pincodeController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
-  PaymentConfiguration? _googlePayConfiguration;
 
-  List<PaymentItem> paymentItems=[];
+  List<PaymentItem> paymentItems = [];
 
   final _addressFormKey = GlobalKey<FormState>();
 
@@ -44,14 +43,6 @@ class _AddressScreenState extends State<AddressScreen> {
     );
   }
 
-  Future<void> _loadGooglePayConfiguration() async {
-    final String response = await rootBundle.loadString('gpay.json');
-    final data = await PaymentConfiguration.fromJsonString(response);
-    setState(() {
-      _googlePayConfiguration = data;
-    });
-  }
-
   @override
   void dispose() {
     // TODO: implement dispose
@@ -61,16 +52,17 @@ class _AddressScreenState extends State<AddressScreen> {
     pincodeController.dispose();
     cityController.dispose();
   }
-  
-  void onApplePayResult(res){
-    if (Provider.of<UserProvider>(context).user.address.isEmpty){
-      addressServices.saveUserAddress(context: context, address: addressToBeUsed);
+
+  void onApplePayResult(res) {
+    if (Provider.of<UserProvider>(context).user.address.isEmpty) {
+      addressServices.saveUserAddress(
+          context: context, address: addressToBeUsed);
     }
   }
 
-  void onGooglePayResult(res){}
+  void onGooglePayResult(res) {}
 
-  void payPressed(String addressFromProvider){
+  void payPressed(String addressFromProvider) {
     addressToBeUsed = "";
 
     bool isForm = flatBuildingController.text.isNotEmpty ||
@@ -179,29 +171,31 @@ class _AddressScreenState extends State<AddressScreen> {
                   ],
                 ),
               ),
-              // ApplePayButton( //9.15.00
+              //  ApplePayButton(
               //   width: double.infinity,
               //   style: ApplePayButtonStyle.whiteOutline,
-              //   height: 50,
               //   type: ApplePayButtonType.buy,
+              //   paymentConfigurationAsset: 'applepay.json',
+              //   onPaymentResult: onApplePayResult,
               //   paymentItems: paymentItems,
-              //   onPaymentResult: onApplePayResult, 
-              //   paymentConfiguration: PaymentConfiguration.fromJsonString('applepay.json'),
               //   margin: const EdgeInsets.only(top: 15),
-              // ), 
-              const SizedBox(height: 10,),
-              GooglePayButton( //////////////////////////////////////////
-                width: double.infinity,
+              //   height: 50,
+              //   onPressed: () => payPressed(address),
+              // ),
+              const SizedBox(
+                height: 10,
+              ),
+              GooglePayButton(
+                // onPressed: () =>payPressed(address),
+                paymentConfigurationAsset: 'gpay.json',
+                onPaymentResult: onGooglePayResult,
+                paymentItems: paymentItems,
                 height: 50,
-                onPressed: () => payPressed(address),
-                theme: GooglePayButtonTheme.dark,
                 type: GooglePayButtonType.buy,
                 margin: const EdgeInsets.only(top: 15),
-                paymentConfiguration: _googlePayConfiguration!, 
-                paymentItems: paymentItems,
-                onPaymentResult: onGooglePayResult,
-                // loadingIndicator: const Center(child: CircularProgressIndicator(),),
-              ),
+                loadingIndicator:
+                    const Center(child: CircularProgressIndicator()),
+              )
             ],
           ),
         ),

@@ -76,6 +76,7 @@ userRouter.post('api/save-user-address', auth, async (req,res)=>{
 userRouter.post('api/order', auth, async (req,res)=>{
     try {
         const {cart, totalPrice,address} = req.body;
+        
         user=  await user.save();
         req.json(user);
     } catch (error) {
