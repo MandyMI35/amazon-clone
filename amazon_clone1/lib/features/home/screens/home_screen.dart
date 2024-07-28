@@ -21,6 +21,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     // final user = Provider.of<UserProvider>(context).user;
 
+    
+
     void navigateToSearchScreen(String query){
       Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
     }

@@ -3,6 +3,7 @@ const userRouter = express.Router();
 const auth=require('../middlewares/auth');
 const { Product } = require('../models/product');
 const User = require('../models/user');
+const Order = require('../models/order');
 
 userRouter.post('/api/add-to-cart',auth,async(req, res)=>{
     try {
@@ -76,9 +77,41 @@ userRouter.post('api/save-user-address', auth, async (req,res)=>{
 userRouter.post('api/order', auth, async (req,res)=>{
     try {
         const {cart, totalPrice,address} = req.body;
-        
-        user=  await user.save();
-        req.json(user);
+        let products = [];
+
+        for(let i=0;i<cart.length;i++){
+            let product = await Product.findById(cart[i].product._id);
+            if(product.quantity >= cart[i].quantity){
+                products.quantity-=cart[i].quantity;
+                products.push({product,quantity: cart[i].quantity});
+                await product.save();
+            } else {
+                return res.status(400).json({msg: `${product.name} is out of stock`});
+            }
+        };
+
+        let user = await User.findById(req.user);
+        user.cart=[];//making sure that cart is empty
+        user = await user.save();
+
+        let order = new Order({
+            products,
+            totalPrice,
+            address,
+            userId: req.user,
+            orderedAt: new Date().getTime(),
+        });
+        order = await order.save();
+        req.json(order);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+userRouter.get('api/orders/me', auth, async (req,res)=>{
+    try {
+        const orders = await Order.findById({userId: req.user});//finding all orders with users id
+        res.json(orders);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

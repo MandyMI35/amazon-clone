@@ -29,7 +29,7 @@ const orderSchema = mongoose.Schema({
     },
     status: {
         type: Number,
-        default: 0,
+        default: 0, //0 : just ordered, 1: completed, 2: recieved, 3: delivered
     }
 });
 
