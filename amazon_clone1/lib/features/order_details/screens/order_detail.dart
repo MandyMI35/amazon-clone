@@ -1,8 +1,11 @@
+import 'package:amazon_clone1/common/widgets/custom_button.dart';
 import 'package:amazon_clone1/constants/global_variables.dart';
 import 'package:amazon_clone1/features/search/screens/search_screen.dart';
 import 'package:amazon_clone1/models/order.dart';
+import 'package:amazon_clone1/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class OrderDetailScreen extends StatefulWidget {
   static const String routeName = '/order-details';
@@ -28,7 +31,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-
+    final user = Provider.of<UserProvider>(context).user;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -162,7 +165,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                               children: [
                                 Text(
                                   widget.order.products[i].name,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 17,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -171,7 +174,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                 ),
                                 Text(
                                   'Qty: ${widget.order.quantity[i].toString()}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 17,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -202,36 +205,39 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 child: Stepper(
                   currentStep: currentStep,
                   controlsBuilder: (context, details){ //details: current stem we r on
+                    if (user.type == 'admin'){
+                      return CustomButton(text: 'Done', onTap: (){});
+                    } 
                     return const SizedBox();
                   },
                   steps: [
                     Step(
-                      title: Text('Pending'), 
-                      content: Text('Your order is yet to be delivered..'),
+                      title: const Text('Pending'), 
+                      content: const Text('Your order is yet to be delivered..'),
                       isActive: currentStep > 0,
                       state: currentStep > 0 
                             ? StepState.complete
                             : StepState.indexed
                     ),
                     Step(
-                      title: Text('Completed'), 
-                      content: Text('Your order has been delivered, you are yet to sign.'),
+                      title: const Text('Completed'), 
+                      content: const Text('Your order has been delivered, you are yet to sign.'),
                       isActive: currentStep > 1,
                       state: currentStep > 1
                             ? StepState.complete
                             : StepState.indexed
                     ),
                     Step(
-                      title: Text('Recieved'), 
-                      content: Text('Your order has been delivered, and signed by you'),
+                      title: const Text('Recieved'), 
+                      content: const Text('Your order has been delivered, and signed by you'),
                       isActive: currentStep > 2,
                       state: currentStep > 2 
                             ? StepState.complete
                             : StepState.indexed
                     ),
                     Step(
-                      title: Text('Delievered'), 
-                      content: Text('Your order has been delivered, and signed by you!'),
+                      title: const Text('Delievered'), 
+                      content: const Text('Your order has been delivered, and signed by you!'),
                       isActive: currentStep >= 3,
                       state: currentStep > 3
                             ? StepState.complete

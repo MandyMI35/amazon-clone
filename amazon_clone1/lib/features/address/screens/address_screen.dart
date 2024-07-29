@@ -23,9 +23,9 @@ class _AddressScreenState extends State<AddressScreen> {
   final TextEditingController pincodeController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
 
-  List<PaymentItem> paymentItems = [];
+  List<PaymentItem> paymentItems = []; //paymentItem holds info about each entry & contain info like label, amount, status, type
 
-  final _addressFormKey = GlobalKey<FormState>();
+  final _addressFormKey = GlobalKey<FormState>(); //GlobalKey that is assigned to a Form widget
 
   String addressToBeUsed = "";
   final AddressServices addressServices = AddressServices();
@@ -38,15 +38,14 @@ class _AddressScreenState extends State<AddressScreen> {
       PaymentItem(
         amount: widget.totalAmount,
         label: 'Total Amount',
-        status: PaymentItemStatus.final_price,
+        status: PaymentItemStatus.final_price, //payment price statuses, [final_price] determines that the price has been calculated and won't change.
       ),
     );
   }
 
   @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
+  void dispose() { //navigating away from a screen or when a parent widget removes the widget from its children
+    super.dispose(); 
     flatBuildingController.dispose();
     areaController.dispose();
     pincodeController.dispose();
@@ -86,7 +85,8 @@ class _AddressScreenState extends State<AddressScreen> {
         cityController.text.isNotEmpty;
 
     if (isForm) {
-      if (_addressFormKey.currentState!.validate()) {
+      if (_addressFormKey.currentState!.validate()) { //currentState:The [State] for the widget in the tree that currently has this global key.
+      //validate() - Validates every [FormField]
         addressToBeUsed =
             '${flatBuildingController.text}, ${areaController.text}, ${cityController.text} - ${pincodeController.text}';
       } else {
@@ -151,12 +151,12 @@ class _AddressScreenState extends State<AddressScreen> {
                   ],
                 ),
               Form(
-                key: _addressFormKey,
+                key: _addressFormKey,  //assigning the key
                 child: Column(
                   children: [
                     CustomTextfield(
                       controller:
-                          flatBuildingController, //manages the text input related here i.e name
+                          flatBuildingController, //manages the text input related here i.e flat/ building
                       hintText: 'Flat, House no, Building',
                     ),
                     const SizedBox(
