@@ -113,22 +113,16 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Order Date:      ${DateFormat().format(
-                        DateTime.fromMicrosecondsSinceEpoch(
-                          widget.order.orderedAt)
-                        )
-                      }',
+                      'Order Date:      ${DateFormat().format(DateTime.fromMicrosecondsSinceEpoch(widget.order.orderedAt))}',
                     ),
-                    Text(
-                      'Order ID:        ${widget.order.id}'
-                    ),
-                    Text(
-                      'Order ID:       \$${widget.order.totalPrice}'
-                    ),
+                    Text('Order ID:        ${widget.order.id}'),
+                    Text('Order ID:       \$${widget.order.totalPrice}'),
                   ],
                 ),
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               const Text(
                 'Purchase details',
                 style: TextStyle(
@@ -144,16 +138,51 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    for(int i=0;i<widget.order.products.length;i++){
+                    for (int i = 0; i < widget.order.products.length; i++)
                       Row(
                         children: [
                           Image.network(
-                            widget.order.products[i].images[0], //10.18
-                          )
+                            widget.order.products[i].images[0],
+                            height: 120,
+                            width: 120,
+                          ),
+                          const SizedBox(width: 5,),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  widget.order.products[i].name,
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Text(
+                                  'Qty: ${widget.order.quantity[i].toString()}',
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            )
+                          ),
                         ],
                       )
-                    }
                   ],
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Text(
+                'Tracking',
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ],
