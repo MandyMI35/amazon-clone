@@ -162,17 +162,19 @@ class AdminServices {
     required BuildContext context, 
     required int status, 
     required Order order,
-    required VoidCallback onSuccess //to use set state fnxn 10.40
+    required VoidCallback onSuccess //to use set state fnxn 
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     try{
       http.Response res = await http.post(Uri.parse(
-        '$uri.admin/delete-product'),
+        '$uri.admin/change-order-status'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8', //MIDDLEWARE express.json() line;
           'x-auth-token' : userProvider.user.token,
         },
         body: jsonEncode({
+          'id':order.id,
+          'status':status,
         }),
       );
 
@@ -186,5 +188,35 @@ class AdminServices {
     } catch(e){
       showSnackBar(context, e.toString());
     }
+  }
+
+  Future<Map<String, dynamic>> getEarnings (BuildContext context) async{
+     final userProvider = Provider.of<UserProvider>(context, listen: false);
+     List<Order> sales = [];
+     try{
+      http.Response res = await http.get(Uri.parse('$uri/admin/get-orders'),headers: {  //Uri.parse to create a Uri object from URL string.
+          'Content-Type': 'application/json; charset=UTF-8', //MIDDLEWARE express.json() line;
+          'x-auth-token' : userProvider.user.token,
+      });
+
+      httpErrorHandle(
+        response: res,
+        context: context, 
+        onSuccess: (){
+          for(int i=0; i<jsonDecode(res.body).length;i++){
+            orderList.add(
+              Order.fromJson(
+                jsonEncode(
+                  jsonDecode(res.body)[i],
+                ),
+              ),
+            ); //fromMap(dart obj)
+          }
+        },
+      );
+     } catch(e){
+      showSnackBar(context, e.toString());
+    }
+    return orderList;
   }
 }

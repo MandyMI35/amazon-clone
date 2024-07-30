@@ -1,5 +1,6 @@
 import 'package:amazon_clone1/common/widgets/custom_button.dart';
 import 'package:amazon_clone1/constants/global_variables.dart';
+import 'package:amazon_clone1/features/admin/services/admin_services.dart';
 import 'package:amazon_clone1/features/search/screens/search_screen.dart';
 import 'package:amazon_clone1/models/order.dart';
 import 'package:amazon_clone1/providers/user_provider.dart';
@@ -17,16 +18,29 @@ class OrderDetailScreen extends StatefulWidget {
 }
 
 class _OrderDetailScreenState extends State<OrderDetailScreen> {
-
-  int currentStep =0;
+  int currentStep = 0;
+  final AdminServices adminServices = AdminServices();
   void navigateToSearchScreen(String query) {
-      Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
+    Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
   }
 
   @override
   void initState() {
     super.initState();
-    currentStep=widget.order.status;
+    currentStep = widget.order.status;
+  }
+
+//for admin
+  void changeOrderStatus(int status) {
+    adminServices.changeOrderStatus(
+        context: context,
+        status: status + 1,
+        order: widget.order,
+        onSuccess: () {
+          setState(() {
+            currentStep += 1;
+          });
+        });
   }
 
   @override
@@ -158,30 +172,31 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                             height: 120,
                             width: 120,
                           ),
-                          const SizedBox(width: 5,),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  widget.order.products[i].name,
-                                  style: const TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                Text(
-                                  'Qty: ${widget.order.quantity[i].toString()}',
-                                  style: const TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            )
+                          const SizedBox(
+                            width: 5,
                           ),
+                          Expanded(
+                              child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                widget.order.products[i].name,
+                                style: const TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              Text(
+                                'Qty: ${widget.order.quantity[i].toString()}',
+                                style: const TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          )),
                         ],
                       )
                   ],
@@ -204,45 +219,51 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     BoxDecoration(border: Border.all(color: Colors.black12)),
                 child: Stepper(
                   currentStep: currentStep,
-                  controlsBuilder: (context, details){ //details: current stem we r on
-                    if (user.type == 'admin'){
-                      return CustomButton(text: 'Done', onTap: (){});
-                    } 
+                  controlsBuilder: (context, details) {
+                    //details: current stem we r on
+                    if (user.type == 'admin') {
+                      return CustomButton(
+                        text: 'Done', 
+                        onTap: () {
+                          () => changeOrderStatus(details.currentStep);
+                        }
+                      );
+                    }
                     return const SizedBox();
                   },
                   steps: [
                     Step(
-                      title: const Text('Pending'), 
-                      content: const Text('Your order is yet to be delivered..'),
-                      isActive: currentStep > 0,
-                      state: currentStep > 0 
+                        title: const Text('Pending'),
+                        content:
+                            const Text('Your order is yet to be delivered..'),
+                        isActive: currentStep > 0,
+                        state: currentStep > 0
                             ? StepState.complete
-                            : StepState.indexed
-                    ),
+                            : StepState.indexed),
                     Step(
-                      title: const Text('Completed'), 
-                      content: const Text('Your order has been delivered, you are yet to sign.'),
-                      isActive: currentStep > 1,
-                      state: currentStep > 1
+                        title: const Text('Completed'),
+                        content: const Text(
+                            'Your order has been delivered, you are yet to sign.'),
+                        isActive: currentStep > 1,
+                        state: currentStep > 1
                             ? StepState.complete
-                            : StepState.indexed
-                    ),
+                            : StepState.indexed),
                     Step(
-                      title: const Text('Recieved'), 
-                      content: const Text('Your order has been delivered, and signed by you'),
-                      isActive: currentStep > 2,
-                      state: currentStep > 2 
+                        title: const Text('Recieved'),
+                        content: const Text(
+                            'Your order has been delivered, and signed by you'),
+                        isActive: currentStep > 2,
+                        state: currentStep > 2
                             ? StepState.complete
-                            : StepState.indexed
-                    ),
+                            : StepState.indexed),
                     Step(
-                      title: const Text('Delievered'), 
-                      content: const Text('Your order has been delivered, and signed by you!'),
-                      isActive: currentStep >= 3,
-                      state: currentStep > 3
+                        title: const Text('Delievered'),
+                        content: const Text(
+                            'Your order has been delivered, and signed by you!'),
+                        isActive: currentStep >= 3,
+                        state: currentStep > 3
                             ? StepState.complete
-                            : StepState.indexed
-                    ),
+                            : StepState.indexed),
                   ],
                 ),
               ),
