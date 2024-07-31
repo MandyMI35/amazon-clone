@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:amazon_clone1/constants/error_handling.dart';
 import 'package:amazon_clone1/constants/global_variables.dart';
 import 'package:amazon_clone1/constants/utils.dart';
+import 'package:amazon_clone1/features/admin/models/sales.dart';
 import 'package:amazon_clone1/models/order.dart';
 import 'package:amazon_clone1/models/product.dart';
 import 'package:amazon_clone1/providers/user_provider.dart';
@@ -192,7 +193,8 @@ class AdminServices {
 
   Future<Map<String, dynamic>> getEarnings (BuildContext context) async{
      final userProvider = Provider.of<UserProvider>(context, listen: false);
-     List<Order> sales = [];
+     List<Sales> sales = [];
+     int totalEarning=0;
      try{
       http.Response res = await http.get(Uri.parse('$uri/admin/get-orders'),headers: {  //Uri.parse to create a Uri object from URL string.
           'Content-Type': 'application/json; charset=UTF-8', //MIDDLEWARE express.json() line;

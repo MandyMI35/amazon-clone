@@ -1,5 +1,6 @@
 class Sales{
-  final String ValueListenableBUilder(
-    
-  ) 
+  final String label;
+  final int earning;
+
+  Sales({required this.label, required this.earning});
 }
