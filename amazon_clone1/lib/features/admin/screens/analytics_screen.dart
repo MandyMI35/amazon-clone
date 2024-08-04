@@ -1,6 +1,7 @@
 import 'package:amazon_clone1/common/widgets/loader.dart';
 import 'package:amazon_clone1/features/admin/models/sales.dart';
 import 'package:amazon_clone1/features/admin/services/admin_services.dart';
+import 'package:amazon_clone1/features/admin/widgets/category_products_chart.dart';
 import 'package:flutter/material.dart';
 
 class AnalyticsScreen extends StatefulWidget {
@@ -40,6 +41,8 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        CategoryProductsChart(),
+        //11.07
       ],
     );
   }

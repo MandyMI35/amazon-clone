@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_charts/flutter_charts.dart' as chart;
+import 'package:fl_chart/fl_chart.dart';
 
 class CategoryProductsChart extends StatelessWidget {
   //11.06
@@ -7,6 +7,6 @@ class CategoryProductsChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return chart.VerticalBarChart(painter:);
+    return Scaffold();
   }
 }
