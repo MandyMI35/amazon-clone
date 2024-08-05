@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:amazon_clone1/models/rating.dart';
 
 class Product {
