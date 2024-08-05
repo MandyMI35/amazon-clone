@@ -134,18 +134,18 @@ class _AddressScreenState extends State<AddressScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           address,
-                          style: TextStyle(fontSize: 18),
+                          style: const TextStyle(fontSize: 18),
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     const Text(
                       'OR',
                       style: TextStyle(fontSize: 20),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                   ],

@@ -1,5 +1,4 @@
 import 'package:amazon_clone1/constants/global_variables.dart';
-import 'package:amazon_clone1/models/user.dart';
 import 'package:amazon_clone1/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

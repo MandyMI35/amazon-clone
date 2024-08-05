@@ -146,7 +146,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
               child: Text(
                 widget.product.name,
-                style: TextStyle(fontSize: 50),
+                style: const TextStyle(fontSize: 50),
               ),
             ),
             CarouselSlider(

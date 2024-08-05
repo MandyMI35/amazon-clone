@@ -94,7 +94,7 @@ class _DealOfDayState extends State<DealOfDay> {
                       padding: const EdgeInsets.symmetric(vertical: 15)
                           .copyWith(left: 15),
                       alignment: Alignment.topLeft,
-                      child: Text(
+                      child: const Text(
                         'See All deals',
                         style: TextStyle(
                           color: Colors.cyan,

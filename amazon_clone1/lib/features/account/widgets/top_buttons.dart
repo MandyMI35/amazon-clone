@@ -1,4 +1,3 @@
-import 'package:amazon_clone1/features/account/screens/account_screen.dart';
 import 'package:amazon_clone1/features/account/services/account_services.dart';
 import 'package:amazon_clone1/features/account/widgets/account_button.dart';
 import 'package:flutter/material.dart';

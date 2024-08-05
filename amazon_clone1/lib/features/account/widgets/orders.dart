@@ -32,14 +32,14 @@ class _OrdersState extends State<Orders> {
   Widget build(BuildContext context) {
     // ignore: unnecessary_null_comparison
     return orders == null
-        ? Loader()
+        ? const Loader()
         : Column(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    padding: EdgeInsets.only(left: 15),
+                    padding: const EdgeInsets.only(left: 15),
                     child: const Text(
                       'Your Orders',
                       style: TextStyle(
@@ -76,7 +76,7 @@ class _OrdersState extends State<Orders> {
                           );
                         },
                         child: SingleProduct(
-                          image: orders![index].products[0].images[0],
+                          image: orders[index].products[0].images[0],
                         ),
                       );
                     }),

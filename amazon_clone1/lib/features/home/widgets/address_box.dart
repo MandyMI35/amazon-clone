@@ -24,13 +24,13 @@ class AddressBox extends StatelessWidget {
       padding: const EdgeInsets.only(left: 10),
       child: Row(
         children: [
-          Icon(
+          const Icon(
             Icons.location_on_outlined, 
             size: 20
           ),
           Expanded(
             child: Padding(
-              padding: EdgeInsets.only(left: 5),
+              padding: const EdgeInsets.only(left: 5),
               child: Text(
                 'Delivery to ${user.name} - ${user.address}',
                 style: const TextStyle(

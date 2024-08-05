@@ -36,12 +36,12 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
       children: [
         Text(
           '\$$totalSales',
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 250,
           child: CategoryProductsChart()),
         //11.07
