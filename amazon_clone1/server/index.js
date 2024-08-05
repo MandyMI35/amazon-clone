@@ -28,11 +28,6 @@ mongoose.connect(DB)
 .then (()=>{console.log("connxn successful");})
 .catch((e)=>{console.log(e);})
 
-
-// app.get("/hello",(req,res)=>{
-//     res.json({hi:"hdhciijbcjsa"})
-// });
-
  app.listen(PORT,"0.0.0.0",() => {
     console.log(`connected at port ${PORT}`)
  });

@@ -20,7 +20,7 @@ class AccountServices {
     try {
       http.Response res =
           await http.get(Uri.parse('$uri/api/orders/me'), headers: {
-        //yri in product.js
+        //uri in user.js
         'Content-Type':
             'application/json; charset=UTF-8', //MIDDLEWARE express.json() line;
         'x-auth-token': userProvider.user.token,
