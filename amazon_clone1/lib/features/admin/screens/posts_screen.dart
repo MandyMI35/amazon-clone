@@ -30,8 +30,7 @@ class _PostsScreenState extends State<PostsScreen> {
   void navigateToAddProduct() {
     Navigator.pushNamed(
         context,
-        AddProductScreen
-            .routeName); // routeName = '/add-product'; ,, router.dart
+        AddProductScreen.routeName); // routeName = '/add-product'; ,, router.dart
   }
 
   void deleteProduct(Product product, int index){
