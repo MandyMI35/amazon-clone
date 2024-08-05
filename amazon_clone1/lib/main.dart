@@ -61,19 +61,3 @@ class _MyAppState extends State<MyApp> {
 
   generateRoute(RouteSettings settings) {}
 }
-
-
-
-// Provider.of<UserProvider>(context).user.token.isEmpty
-//           ? const AuthScreen(),
-//            Provider.of<UserProvider>(context).user.type == 'user'
-//               ? const AdminScreen()
-//               : const AdminScreen()
-//            const AuthScreen(),
-
-
-// if (Provider.of<UserProvider>(context).user.token.isNotEmpty){
-//  if (Provider.of<UserProvider>(context).user.type == 'user') {return const BottomBar()}
-//   else if (Provider.of<UserProvider>(context).user.type == 'admin'){return const AdminScreen()}
-// else return const AuthScreen()
-// }
